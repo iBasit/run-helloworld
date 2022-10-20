@@ -39,6 +39,7 @@ app.get('/', (req, res) => {
         expectedAudience,
         ['https://cloud.google.com/iap']
     );
+
     // Print out the info contained in the IAP ID token
     console.log(ticket);
   }
