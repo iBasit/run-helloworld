@@ -16,10 +16,47 @@
 // [START run_helloworld_service]
 const express = require('express');
 const app = express();
+const {OAuth2Client} = require('google-auth-library');
+
+const oAuth2Client = new OAuth2Client();
+
+
+async function verify() {
+  // Verify the id_token, and access the claims.
+  const response = await oAuth2Client.getIapPublicKeys();
+  const ticket = await oAuth2Client.verifySignedJwtWithCertsAsync(
+      iapJwt,
+      response.pubkeys,
+      '/projects/689674144422/global/backendServices/4725503496770607205',
+      ['https://cloud.google.com/iap']
+  );
+  // Print out the info contained in the IAP ID token
+  console.log(ticket);
+}
+
+let expectedAudience = `/projects/689674144422/global/backendServices/4725503496770607205`;
+
+async function verify(iapJwt) {
+  // Verify the id_token, and access the claims.
+  const response = await oAuth2Client.getIapPublicKeys();
+  const ticket = await oAuth2Client.verifySignedJwtWithCertsAsync(
+      iapJwt,
+      response.pubkeys,
+      expectedAudience,
+      ['https://cloud.google.com/iap']
+  );
+  // Print out the info contained in the IAP ID token
+  console.log(ticket);
+}
 
 app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}!`);
+
+  const iapJwt = req.header['x-goog-iap-jwt-assertion']; // JWT from the "x-goog-iap-jwt-assertion" header
+  console.log(iapJwt)
+  verify(iapJwt).catch(console.error);
+
+  res.send(`Hello ${name}! 2`);
 });
 
 const port = parseInt(process.env.PORT) || 8080;
