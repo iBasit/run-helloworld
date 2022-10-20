@@ -52,8 +52,8 @@ app.get('/', (req, res) => {
 
   // these headers are not found
   console.log("X-Goog-IAP-JWT-Assertion", req.headers["X-Goog-IAP-JWT-Assertion"]);
-  console.log("x-goog-iap-jwt-assertion", req.headers("x-goog-iap-jwt-assertion"));
-  console.log("X-Goog-Iap-Jwt-Assertion", req.headers("X-Goog-Iap-Jwt-Assertion"));
+  console.log("x-goog-iap-jwt-assertion", req.headers["x-goog-iap-jwt-assertion"]);
+  console.log("X-Goog-Iap-Jwt-Assertion", req.headers["X-Goog-Iap-Jwt-Assertion"]);
   console.log("X-Goog-Iap-Jwt-Assertion", req.headers["X-Goog-Iap-Jwt-Assertion"]);
 
   res.send(`Hello ${name}! 2<br/>
