@@ -20,20 +20,6 @@ const {OAuth2Client} = require('google-auth-library');
 
 const oAuth2Client = new OAuth2Client();
 
-
-async function verify() {
-  // Verify the id_token, and access the claims.
-  const response = await oAuth2Client.getIapPublicKeys();
-  const ticket = await oAuth2Client.verifySignedJwtWithCertsAsync(
-      iapJwt,
-      response.pubkeys,
-      '/projects/689674144422/global/backendServices/4725503496770607205',
-      ['https://cloud.google.com/iap']
-  );
-  // Print out the info contained in the IAP ID token
-  console.log(ticket);
-}
-
 let expectedAudience = `/projects/689674144422/global/backendServices/4725503496770607205`;
 
 async function verify(iapJwt) {
