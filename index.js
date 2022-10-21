@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
 
 
-  /*const iapJwt = req.header['x-goog-iap-jwt-assertion']; // JWT from the "x-goog-iap-jwt-assertion" header
+  const iapJwt = req.header['x-iap-3p-token']; // JWT from the "x-goog-iap-jwt-assertion" header
   console.log(iapJwt)
 
   const oAuth2Client = new OAuth2Client();
@@ -44,7 +44,10 @@ app.get('/', (req, res) => {
     // Print out the info contained in the IAP ID token
     console.log(ticket);
   }
-  verify(iapJwt).catch(console.error);*/
+  if (iapJwt) {
+    verify(iapJwt).catch(console.error);
+  }
+
 
   // these headers are found
   console.log("x-goog-authenticated-user-email", req.headers["x-goog-authenticated-user-email"]);
@@ -56,6 +59,8 @@ app.get('/', (req, res) => {
   console.log("X-Goog-Iap-Jwt-Assertion", req.headers["X-Goog-Iap-Jwt-Assertion"]);
   console.log("X-Goog-Iap-Jwt-Assertion", req.headers["X-Goog-Iap-Jwt-Assertion"]);
 
+  console.log("x-iap-3p-token", req.headers["x-iap-3p-token"]);
+
   res.send(`Hello ${name}! 2<br/>
 <br/><br/>
 x-goog-authenticated-user-email: ${req.headers["x-goog-authenticated-user-email"]} <br/>
@@ -64,7 +69,9 @@ x-goog-authenticated-user-id: ${req.headers["x-goog-authenticated-user-id"]} <br
 X-Goog-IAP-JWT-Assertion: ${req.headers["X-Goog-IAP-JWT-Assertion"]} <br/>
 x-goog-iap-jwt-assertion: ${req.headers["x-goog-iap-jwt-assertion"]} <br/>
 X-Goog-Iap-Jwt-Assertion: ${req.headers["X-Goog-Iap-Jwt-Assertion"]} <br/>
-X-Goog-Iap-Jwt-Assertion ${req.headers["X-Goog-Iap-Jwt-Assertion"]} <br/>
+X-Goog-Iap-Jwt-Assertion: ${req.headers["X-Goog-Iap-Jwt-Assertion"]} <br/>
+<br/><br/>
+x-iap-3p-token: ${req.headers["x-iap-3p-token"]} <br/>
 `);
 });
 
