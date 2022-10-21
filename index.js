@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
 
 
-  const iapJwt = req.header['x-iap-3p-token']; // JWT from the "x-goog-iap-jwt-assertion" header
+  const iapJwt = req.header['x-goog-iap-jwt-assertion']; // JWT from the "x-goog-iap-jwt-assertion" header
   console.log(iapJwt)
 
   const oAuth2Client = new OAuth2Client();
