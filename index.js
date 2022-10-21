@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
   const oAuth2Client = new OAuth2Client();
 
-  let expectedAudience = `/projects/689674144422/global/backendServices/4725503496770607205`;
+  let expectedAudience = `/projects/689674144422/global/backendServices/7728905768165956011`;
 
   async function verify(iapJwt) {
     // Verify the id_token, and access the claims.
